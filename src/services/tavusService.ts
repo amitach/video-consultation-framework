@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { TavusPersona, ConversationSession, ApiResponse } from '../types';
 
 class TavusService {
@@ -9,18 +10,21 @@ class TavusService {
     this.baseUrl = 'https://tavusapi.com/v2';
   }
 
-  async createPersona(personaConfig: TavusPersona): Promise<ApiResponse<TavusPersona>> {
+  async createPersona(personaConfig: any): Promise<ApiResponse<TavusPersona>> {
     try {
       const response = await fetch(`${this.baseUrl}/personas`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
+          'x-api-key': this.apiKey,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: personaConfig.name,
           description: personaConfig.description,
           conversation_config: personaConfig.conversationConfig,
+          pipeline_mode: personaConfig.pipeline_mode,
+          system_prompt: personaConfig.system_prompt,
+          replica_id: personaConfig.replicaId,
         }),
       });
 
@@ -57,7 +61,7 @@ class TavusService {
       const response = await fetch(`${this.baseUrl}/conversations`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
+          'x-api-key': this.apiKey,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -105,7 +109,7 @@ class TavusService {
       const response = await fetch(`${this.baseUrl}/conversations/${conversationId}`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
+          'x-api-key': this.apiKey,
         },
       });
 
@@ -134,7 +138,7 @@ class TavusService {
       const response = await fetch(`${this.baseUrl}/conversations/${conversationId}/end`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
+          'x-api-key': this.apiKey,
         },
       });
 
@@ -167,7 +171,7 @@ class TavusService {
       const response = await fetch(`${this.baseUrl}/replicas`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
+          'x-api-key': this.apiKey,
         },
         body: formData,
       });

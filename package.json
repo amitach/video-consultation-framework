@@ -18,7 +18,8 @@
     "uuid": "^9.0.1",
     "date-fns": "^2.30.0",
     "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^2.0.0",
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
