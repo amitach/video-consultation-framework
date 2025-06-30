@@ -54,6 +54,7 @@ function DashboardAutoStart() {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [debugDetails, setDebugDetails] = React.useState<any>(null);
+  const hasStartedRef = React.useRef(false);
 
   React.useEffect(() => {
     if (hasStartedRef.current) return;
@@ -221,21 +222,9 @@ function HomePage() {
     setShowDashboard(true);
   };
 
-  const handleStartConversation = async () => {
-    if (!persona) return;
-    try {
-      // Create a new conversation session (real Tavus API call here)
-      const patientId = `patient-${Date.now()}`;
-      const session = await tavusService.mockConversationSession(persona.id, patientId);
-      // In real use, get the conversationUrl from Tavus API
-      if (session && session.videoUrl) {
-        window.location.href = `/conversation/${encodeURIComponent(session.videoUrl)}`;
-      } else {
-        alert('Failed to get conversation URL.');
-      }
-    } catch (error) {
-      console.error('Failed to start conversation:', error);
-    }
+  const handleStartConversation = () => {
+    // Always use the DashboardAutoStart route for launching a conversation
+    window.location.href = '/dashboard';
   };
 
   return (
