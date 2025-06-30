@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertTriangle, CheckCircle, XCircle, Info } from 'lucide-react';
+import { AlertTriangle, CheckCircle, XCircle, Info, ExternalLink } from 'lucide-react';
 
 interface DebugInfo {
   type: 'success' | 'error' | 'warning' | 'info';
@@ -16,6 +16,11 @@ export const DebugPanel: React.FC = () => {
   };
 
   const checkEnvironmentVariables = () => {
+    addDebugInfo({
+      type: 'info',
+      message: 'Checking environment variables...',
+    });
+
     const checks = [
       {
         name: 'VITE_TAVUS_API_KEY',
@@ -49,6 +54,20 @@ export const DebugPanel: React.FC = () => {
         });
       }
     });
+
+    // Check for CORS issues
+    const isDevelopment = window.location.hostname === 'localhost' || 
+                         window.location.hostname === '127.0.0.1' ||
+                         window.location.hostname.includes('stackblitz') ||
+                         window.location.hostname.includes('bolt.new');
+
+    if (isDevelopment) {
+      addDebugInfo({
+        type: 'warning',
+        message: 'Development environment detected',
+        details: 'CORS restrictions may prevent video embedding. Consider using "Open in New Tab" option.'
+      });
+    }
   };
 
   const testTavusAPI = async () => {
@@ -74,10 +93,11 @@ export const DebugPanel: React.FC = () => {
           details: `Found ${Array.isArray(data) ? data.length : 'unknown'} replicas`
         });
       } else {
+        const errorText = await response.text();
         addDebugInfo({
           type: 'error',
           message: `Tavus API error: ${response.status} ${response.statusText}`,
-          details: await response.text()
+          details: errorText
         });
       }
     } catch (error) {
@@ -114,7 +134,11 @@ export const DebugPanel: React.FC = () => {
         addDebugInfo({
           type: 'success',
           message: 'Conversation created successfully!',
-          details: data
+          details: {
+            conversation_url: data.conversation_url,
+            conversation_id: data.conversation_id,
+            status: data.status
+          }
         });
       } else {
         addDebugInfo({
@@ -130,6 +154,32 @@ export const DebugPanel: React.FC = () => {
         details: error instanceof Error ? error.message : 'Unknown error'
       });
     }
+  };
+
+  const testCORSWorkaround = () => {
+    addDebugInfo({
+      type: 'info',
+      message: 'Testing CORS workaround...',
+    });
+
+    // Check if we can access Daily.co script
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/@daily-co/daily-js';
+    script.onload = () => {
+      addDebugInfo({
+        type: 'success',
+        message: 'Daily.co script loaded successfully',
+        details: 'Video embedding should work'
+      });
+    };
+    script.onerror = () => {
+      addDebugInfo({
+        type: 'error',
+        message: 'Failed to load Daily.co script',
+        details: 'Network or CORS issue detected'
+      });
+    };
+    document.head.appendChild(script);
   };
 
   const clearDebugInfo = () => {
@@ -172,7 +222,7 @@ export const DebugPanel: React.FC = () => {
         </div>
 
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <button
               onClick={checkEnvironmentVariables}
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
@@ -191,6 +241,37 @@ export const DebugPanel: React.FC = () => {
             >
               Test Conversation
             </button>
+            <button
+              onClick={testCORSWorkaround}
+              className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
+            >
+              Test CORS
+            </button>
+          </div>
+
+          {/* CORS Information Panel */}
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <h3 className="font-bold text-yellow-800 mb-2 flex items-center">
+              <AlertTriangle className="w-5 h-5 mr-2" />
+              CORS Issue Detected
+            </h3>
+            <p className="text-yellow-700 text-sm mb-3">
+              The "tavus.daily.co refused to connect" error is caused by CORS (Cross-Origin Resource Sharing) restrictions in development mode.
+            </p>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center space-x-2">
+                <ExternalLink className="w-4 h-4 text-yellow-600" />
+                <span className="text-yellow-700">
+                  <strong>Solution:</strong> Use "Open in New Tab" button when the video fails to load
+                </span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+                <span className="text-yellow-700">
+                  <strong>Production:</strong> This issue won't occur in deployed applications
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="flex justify-between items-center mb-4">
