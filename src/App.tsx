@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { PersonaSetup } from './components/PersonaSetup';
 import { Dashboard } from './components/Dashboard';
-import { DebugPanel } from './components/DebugPanel';
 import ConversationRoom from './components/ConversationRoom';
-import { TavusPersona, Conversation, ConversationSession, ExtractedData } from './types';
+import { TavusPersona, Conversation } from './types';
 import { tavusService } from './services/tavusService';
 import { picaService } from './services/picaService';
 import { dataExtractionService } from './services/dataExtractionService';
@@ -37,7 +36,6 @@ function ZiggyHomePage() {
           <span className="font-semibold">Ziggy</span> is powered by cutting-edge AI and a questionable sense of humor. Proceed at your own risk! 😂
         </div>
       </div>
-      <DebugPanel />
       <style>{`
         @keyframes wiggle {
           0%, 100% { transform: rotate(-2deg); }
@@ -53,7 +51,6 @@ function DashboardAutoStart() {
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
-  const [debugDetails, setDebugDetails] = React.useState<any>(null);
   const hasStartedRef = React.useRef(false);
 
   React.useEffect(() => {
@@ -62,49 +59,23 @@ function DashboardAutoStart() {
     async function startConversation() {
       setLoading(true);
       setError(null);
-      setDebugDetails(null);
 
-      // Enhanced debugging - check environment variables first
+      // Check environment variables (but do not expose them)
       const apiKey = import.meta.env.VITE_TAVUS_API_KEY;
       const replicaId = import.meta.env.VITE_TAVUS_REPLICA_ID;
       const personaId = import.meta.env.VITE_TAVUS_PERSONA_ID;
 
-      console.log('🔍 Debug Info:', {
-        hasApiKey: !!apiKey,
-        apiKeyLength: apiKey?.length || 0,
-        hasReplicaId: !!replicaId,
-        hasPersonaId: !!personaId,
-        replicaId: replicaId ? `${replicaId.substring(0, 8)}...` : 'missing',
-        personaId: personaId ? `${personaId.substring(0, 8)}...` : 'missing'
-      });
-
-      if (!apiKey) {
-        setError('Missing VITE_TAVUS_API_KEY environment variable. Please add it to your .env file.');
-        setLoading(false);
-        return;
-      }
-
-      if (!replicaId) {
-        setError('Missing VITE_TAVUS_REPLICA_ID environment variable. Please add it to your .env file.');
-        setLoading(false);
-        return;
-      }
-
-      if (!personaId) {
-        setError('Missing VITE_TAVUS_PERSONA_ID environment variable. Please add it to your .env file.');
+      if (!apiKey || !replicaId || !personaId) {
+        setError('Missing required configuration. Please contact support.');
         setLoading(false);
         return;
       }
 
       try {
-        console.log('🚀 Making Tavus API call...');
-        
         const requestBody = {
           replica_id: replicaId,
           persona_id: personaId,
         };
-
-        console.log('📤 Request body:', requestBody);
 
         const response = await fetch('https://tavusapi.com/v2/conversations', {
           method: 'POST',
@@ -115,20 +86,9 @@ function DashboardAutoStart() {
           body: JSON.stringify(requestBody),
         });
 
-        console.log('📥 Response status:', response.status, response.statusText);
-
         const data = await response.json();
-        console.log('📥 Response data:', data);
-
-        setDebugDetails({
-          status: response.status,
-          statusText: response.statusText,
-          headers: Object.fromEntries(response.headers.entries()),
-          data: data
-        });
 
         if (data.conversation_url) {
-          console.log('✅ Success! Redirecting to:', data.conversation_url);
           setTimeout(() => {
             navigate(`/conversation/${encodeURIComponent(data.conversation_url)}`);
           }, 1200);
@@ -136,13 +96,11 @@ function DashboardAutoStart() {
           setError('You have reached the maximum number of active video calls. Please end an existing call before starting a new one.');
           setLoading(false);
         } else {
-          setError(`Failed to start Ziggy conversation. API Response: ${JSON.stringify(data)}`);
+          setError('Failed to start Ziggy conversation. Please try again later.');
           setLoading(false);
         }
       } catch (e) {
-        console.error('❌ Error:', e);
-        setError(`Network error: ${e instanceof Error ? e.message : 'Unknown error'}`);
-        setDebugDetails({ error: e instanceof Error ? e.message : 'Unknown error' });
+        setError('Network error. Please try again.');
         setLoading(false);
       }
     }
@@ -168,14 +126,6 @@ function DashboardAutoStart() {
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mt-4">
             <div className="text-red-600 font-bold mb-2">{error}</div>
-            {debugDetails && (
-              <details className="mt-4">
-                <summary className="text-sm text-red-500 cursor-pointer">Debug Details</summary>
-                <pre className="text-xs text-red-400 mt-2 bg-red-100 p-2 rounded overflow-x-auto">
-                  {JSON.stringify(debugDetails, null, 2)}
-                </pre>
-              </details>
-            )}
             <button
               onClick={() => window.location.reload()}
               className="mt-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
@@ -185,7 +135,6 @@ function DashboardAutoStart() {
           </div>
         )}
       </div>
-      <DebugPanel />
     </div>
   );
 }
@@ -223,7 +172,6 @@ function HomePage() {
   };
 
   const handleStartConversation = () => {
-    // Always use the DashboardAutoStart route for launching a conversation
     window.location.href = '/dashboard';
   };
 
