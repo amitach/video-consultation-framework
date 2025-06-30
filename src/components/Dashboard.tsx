@@ -213,14 +213,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   </span>
                   <div className="flex items-center space-x-2">
                     {conversation.integrationStatus.ehrIntegration === 'success' && (
-                      <CheckCircle className="w-4 h-4 text-green-500" title="EHR Integration Success" />
+                      <CheckCircle className="w-4 h-4 text-green-500" />
                     )}
                     {conversation.integrationStatus.crmIntegration === 'success' && (
-                      <CheckCircle className="w-4 h-4 text-blue-500" title="CRM Integration Success" />
+                      <CheckCircle className="w-4 h-4 text-blue-500" />
                     )}
                     {(conversation.integrationStatus.ehrIntegration === 'failed' || 
                       conversation.integrationStatus.crmIntegration === 'failed') && (
-                      <AlertTriangle className="w-4 h-4 text-red-500" title="Integration Failed" />
+                      <AlertTriangle className="w-4 h-4 text-red-500" />
                     )}
                   </div>
                 </div>

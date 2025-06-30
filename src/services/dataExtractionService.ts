@@ -112,8 +112,8 @@ class DataExtractionService {
     Object.entries(medicalContextMapping.conditions).forEach(([category, conditions]) => {
       conditions.forEach(condition => {
         if (lowerText.includes(condition.toLowerCase())) {
-          if (!extractedData.medicalHistory.conditions.includes(condition)) {
-            extractedData.medicalHistory.conditions.push(condition);
+          if (!(extractedData.medicalHistory.conditions ?? []).includes(condition)) {
+            (extractedData.medicalHistory.conditions ??= []).push(condition);
           }
         }
       });
@@ -122,11 +122,11 @@ class DataExtractionService {
     // Extract medications
     medicalContextMapping.medications.common.forEach(medication => {
       if (lowerText.includes(medication.toLowerCase())) {
-        const existingMed = extractedData.medicalHistory.medications.find(
+        const existingMed = (extractedData.medicalHistory.medications ?? []).find(
           med => med.name.toLowerCase() === medication.toLowerCase()
         );
         if (!existingMed) {
-          extractedData.medicalHistory.medications.push({
+          (extractedData.medicalHistory.medications ??= []).push({
             name: medication,
             dosage: '',
             frequency: '',
@@ -250,14 +250,13 @@ class DataExtractionService {
       summary.push(`Severity: ${extractedData.symptoms.severity}/10`);
     }
 
-    if (extractedData.medicalHistory.conditions.length > 0) {
-      summary.push(`Medical conditions: ${extractedData.medicalHistory.conditions.join(', ')}`);
+    if ((extractedData.medicalHistory.conditions ?? []).length > 0) {
+      summary.push(`Medical conditions: ${(extractedData.medicalHistory.conditions ?? []).join(', ')}`);
     }
 
     if (extractedData.appointmentPreferences.appointmentType) {
       summary.push(`Appointment type: ${extractedData.appointmentPreferences.appointmentType}`);
     }
-
     return summary.join(' | ');
   }
 }

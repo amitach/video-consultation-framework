@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, User, Settings, CheckCircle, AlertCircle } from 'lucide-react';
-import { TavusPersona } from '../types';
+import { TavusPersona, Conversation } from '../types';
 import { healthcarePersonaConfig } from '../config/personas';
 import { tavusService } from '../services/tavusService';
 import ConversationRoom from './ConversationRoom';
@@ -73,7 +73,7 @@ export const PersonaSetup: React.FC<PersonaSetupProps> = ({ onPersonaCreated }) 
       if (Array.isArray(data)) {
         setActiveConversations(data.filter((c) => c.status === 'active'));
       } else if (Array.isArray(data.conversations)) {
-        setActiveConversations(data.conversations.filter((c) => c.status === 'active'));
+        setActiveConversations(data.conversations.filter((c: Conversation) => c.status === 'active'));
       } else {
         setActiveConversations([]);
       }
