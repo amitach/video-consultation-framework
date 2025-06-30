@@ -12,36 +12,107 @@ import { v4 as uuidv4 } from 'uuid';
 function ZiggyHomePage() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 flex flex-col items-center justify-center text-center px-4">
-      <div className="max-w-2xl w-full">
-        <div className="flex flex-col items-center mb-8">
-          <div className="animate-bounce w-32 h-32 rounded-full bg-gradient-to-tr from-pink-500 via-yellow-400 to-blue-500 flex items-center justify-center shadow-2xl mb-6 border-8 border-white">
-            <span className="text-6xl font-extrabold text-white drop-shadow-lg">😂</span>
+    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 flex flex-col justify-between items-center text-center px-4 relative">
+      <div className="w-full flex-1 flex flex-col justify-center items-center">
+        <div className="max-w-2xl w-full">
+          <div className="flex flex-col items-center mb-4 md:mb-6">
+            <div className="relative flex flex-col items-center mb-4">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-tr from-pink-500 via-yellow-400 to-blue-500 flex items-center justify-center shadow-2xl border-8 border-white mb-2">
+                <span className="text-6xl font-extrabold text-white drop-shadow-lg">😂</span>
+              </div>
+              <div className="absolute bottom-0 right-0 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-blue-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" className="w-8 h-8 text-blue-500">
+                  <rect x="4" y="8" width="16" height="16" rx="4" fill="#3b82f6"/>
+                  <rect x="4" y="8" width="16" height="16" rx="4" fill="#3b82f6"/>
+                  <rect x="4" y="8" width="16" height="16" rx="4" fill="#3b82f6"/>
+                  <path d="M20 14l6-4v12l-6-4v-4z" fill="#fbbf24"/>
+                </svg>
+              </div>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-yellow-500 to-blue-600 mb-2 drop-shadow-lg">
+              Meet Ziggy
+            </h1>
+            <h2 className="text-xl md:text-2xl font-bold text-blue-900 mb-1">
+              Your AI Video Call Sidekick
+            </h2>
+            <p className="text-base md:text-lg text-blue-800 mb-2 font-medium">
+              Talk face-to-face with Ziggy, the world's first AI you can actually video call! Ask questions, share a laugh, or just chat—Ziggy responds in real time, just like a real person.
+            </p>
+            <p className="text-sm text-blue-700 mb-2">
+              Click below to start a live video conversation with your AI assistant. No downloads, no waiting—just instant, interactive fun!
+            </p>
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-yellow-500 to-blue-600 mb-4 drop-shadow-lg">
-            Meet Ziggy
-          </h1>
-          <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-2">Your AI Comedy Sidekick</h2>
-          <p className="text-lg md:text-xl text-blue-800 mb-6 font-medium">
-            Ready to turn your day around? Ziggy is the world's first AI assistant who's always in the mood for a laugh, a joke, or a little bit of mischief. Need a pick-me-up, a witty comeback, or just want to chat with the funniest bot in town? Ziggy's got you covered!
-          </p>
         </div>
+        {/* Video Call Experience Section */}
+        <div className="w-full max-w-3xl mx-auto mb-4 md:mb-0">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+            {/* User Card */}
+            <div className="flex flex-col items-center bg-white rounded-2xl shadow-lg p-4 md:p-6 w-full md:w-1/3 border border-blue-100">
+              <div className="w-14 h-14 rounded-full bg-blue-200 flex items-center justify-center mb-2">
+                <span className="text-2xl">🧑‍💻</span>
+              </div>
+              <div className="font-bold text-blue-900 mb-1">You</div>
+              <div className="text-blue-600 text-xs md:text-sm">Ask anything, share a story, or just say hi!</div>
+            </div>
+            {/* Chat Bubble */}
+            <div className="hidden md:flex flex-col items-center">
+              <div className="bg-gradient-to-r from-pink-200 via-yellow-100 to-blue-200 rounded-full px-4 py-2 md:px-6 md:py-3 shadow text-blue-900 font-semibold text-base md:text-lg border border-blue-100">
+                <span>💬 Real-time Video Chat</span>
+              </div>
+            </div>
+            {/* Ziggy Card */}
+            <div className="flex flex-col items-center bg-white rounded-2xl shadow-lg p-4 md:p-6 w-full md:w-1/3 border border-pink-100">
+              <div className="w-14 h-14 rounded-full bg-pink-200 flex items-center justify-center mb-2 relative">
+                <span className="text-2xl">😂</span>
+                <span className="absolute bottom-0 right-0 w-5 h-5 bg-white rounded-full flex items-center justify-center border-2 border-pink-200">
+                  <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' className='w-3 h-3 text-pink-500'><rect x='3' y='6' width='12' height='12' rx='3' fill='#ec4899'/><path d='M15 10l5-3.5v10L15 13v-3z' fill='#fde68a'/></svg>
+                </span>
+              </div>
+              <div className="font-bold text-pink-900 mb-1">Ziggy</div>
+              <div className="text-pink-600 text-xs md:text-sm">Your AI video call sidekick—funny, smart, and always ready to chat!</div>
+            </div>
+          </div>
+          {/* Mobile chat bubble */}
+          <div className="flex md:hidden justify-center mt-2">
+            <div className="bg-gradient-to-r from-pink-200 via-yellow-100 to-blue-200 rounded-full px-4 py-2 shadow text-blue-900 font-semibold text-sm border border-blue-100">
+              <span>💬 Real-time Video Chat</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Start Button always at the bottom of the fold */}
+      <div className="w-full px-0 md:px-0 mb-2 md:mb-4">
         <button
           onClick={() => navigate('/dashboard')}
-          className="w-full py-4 px-8 rounded-xl bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 text-white text-2xl font-bold shadow-lg hover:scale-105 transition-transform duration-200 animate-wiggle"
+          className="w-full py-4 px-8 rounded-xl bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 text-white text-2xl font-bold shadow-lg hover:scale-105 transition-transform duration-200 animate-wiggle pointer-events-auto"
         >
           Start Laughing with Ziggy
         </button>
-        <div className="mt-10 text-blue-700 text-sm opacity-80">
-          <span className="font-semibold">Ziggy</span> is powered by cutting-edge AI and a questionable sense of humor. Proceed at your own risk! 😂
-        </div>
       </div>
+      {/* Bolt.new badge bottom right */}
+      <a
+        href="https://bolt.new/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Built with Bolt.new"
+        className="fixed bottom-4 right-4 z-50"
+        style={{ width: '56px', height: '56px' }}
+      >
+        <img
+          src="https://raw.githubusercontent.com/kickiniteasy/bolt-hackathon-badge/main/src/public/bolt-badge/black_circle_360x360/black_circle_360x360.svg"
+          alt="Built with Bolt.new"
+          style={{ width: '100%', height: '100%' }}
+        />
+      </a>
       <style>{`
         @keyframes wiggle {
           0%, 100% { transform: rotate(-2deg); }
           50% { transform: rotate(2deg); }
         }
         .animate-wiggle { animation: wiggle 1.2s infinite; }
+        @media (max-width: 767px) {
+          .bolt-badge { width: 40px !important; height: 40px !important; }
+        }
       `}</style>
     </div>
   );
