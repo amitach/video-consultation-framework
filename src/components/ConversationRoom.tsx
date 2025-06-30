@@ -35,32 +35,12 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
   const [showFallback, setShowFallback] = useState(false);
   const conversationId = extractConversationId(conversationUrl);
 
-  // End conversation helper
-  const endConversation = async () => {
-    if (!conversationId) {
-      setDebugMsg('No conversation ID found.');
+  // End call handler
+  const handleEndCall = () => {
+    if (callFrameRef.current) {
+      callFrameRef.current.leave();
       setEnding(true);
-      setTimeout(() => {
-        setEnding(false);
-        navigate('/');
-      }, 2000);
-      return;
-    }
-    setEnding(true);
-    setDebugMsg('Ending conversation...');
-    try {
-      await tavusService.endConversation(conversationId);
-      setDebugMsg('Conversation ended successfully!');
-      setTimeout(() => {
-        setEnding(false);
-        navigate('/');
-      }, 2000);
-    } catch (err) {
-      setDebugMsg('Failed to end conversation.');
-      setTimeout(() => {
-        setEnding(false);
-        navigate('/');
-      }, 2000);
+      setDebugMsg('Leaving meeting...');
     }
   };
 
@@ -252,7 +232,7 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
 
         {/* End Call Button */}
         <button
-          onClick={endConversation}
+          onClick={handleEndCall}
           disabled={ending}
           className="absolute top-6 right-6 z-50 px-6 py-3 bg-red-600 text-white rounded-lg font-bold shadow-lg hover:bg-red-700 transition-colors"
         >
@@ -296,7 +276,7 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
 
       {/* End Call Button */}
       <button
-        onClick={endConversation}
+        onClick={handleEndCall}
         disabled={ending}
         className="absolute top-6 right-6 z-50 px-6 py-3 bg-red-600 text-white rounded-lg font-bold shadow-lg hover:bg-red-700 transition-colors"
         style={{ opacity: ending ? 0.6 : 1, pointerEvents: ending ? 'none' : 'auto' }}

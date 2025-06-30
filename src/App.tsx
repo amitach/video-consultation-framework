@@ -56,6 +56,8 @@ function DashboardAutoStart() {
   const [debugDetails, setDebugDetails] = React.useState<any>(null);
 
   React.useEffect(() => {
+    if (hasStartedRef.current) return;
+    hasStartedRef.current = true;
     async function startConversation() {
       setLoading(true);
       setError(null);
