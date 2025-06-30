@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-node_modules/
-.env
-=======
+
 # Node modules
 node_modules/
 
@@ -39,4 +36,3 @@ Thumbs.db
 
 # Misc
 *.local
->>>>>>> 462cfac (added tavus integration ( basic))
