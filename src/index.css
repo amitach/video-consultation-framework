@@ -2,11 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Minimal default theme for visibility */
+/* Ziggy Comedy Assistant Styles */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Montserrat:wght@400;700&display=swap');
+
 body {
   background: #f8fafc;
   color: #222;
-  font-family: system-ui, sans-serif;
+  font-family: 'Montserrat', system-ui, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -35,4 +37,37 @@ button:hover {
 .bg-primary-500 { background: #0ea5e9 !important; }
 .text-white { color: #fff !important; }
 .bg-healthcare-200 { background: #e2e8f0 !important; }
-.text-healthcare-600 { color: #64748b !important; } 
+.text-healthcare-600 { color: #64748b !important; }
+
+.ziggy-gradient {
+  background: linear-gradient(90deg, #ec4899 0%, #fde68a 50%, #3b82f6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.ziggy-emoji {
+  font-size: 4rem;
+  filter: drop-shadow(0 2px 8px #ec4899aa);
+}
+
+.ziggy-btn {
+  background: linear-gradient(90deg, #ec4899 0%, #fde68a 50%, #3b82f6 100%);
+  color: #fff;
+  font-family: 'Fredoka', 'Montserrat', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px 0 #fde68a55;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.ziggy-btn:hover {
+  transform: scale(1.05) rotate(-2deg);
+  box-shadow: 0 8px 32px 0 #ec4899aa;
+}
+
+.ziggy-shadow {
+  box-shadow: 0 8px 32px 0 #ec4899aa;
+} 

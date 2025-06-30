@@ -41,7 +41,7 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
       setEnding(true);
       setTimeout(() => {
         setEnding(false);
-        window.location.reload();
+        navigate('/');
       }, 2000);
       return;
     }
@@ -52,13 +52,13 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
       setDebugMsg('Conversation ended successfully!');
       setTimeout(() => {
         setEnding(false);
-        window.location.reload();
+        navigate('/');
       }, 2000);
     } catch (err) {
       setDebugMsg('Failed to end conversation.');
       setTimeout(() => {
         setEnding(false);
-        window.location.reload();
+        navigate('/');
       }, 2000);
     }
   };
@@ -103,9 +103,6 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
         callFrameRef.current.on('error', (e: any) => {
           setDebugMsg('Daily call frame error: ' + JSON.stringify(e));
         });
-        callFrameRef.current.on('left-meeting', () => {
-          endConversation();
-        });
       } else {
         setDebugMsg('Daily or containerRef not ready.');
       }
@@ -145,7 +142,7 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
         {ending ? (debugMsg === 'Ending conversation...' ? 'Ending...' : debugMsg) : 'End Call'}
       </button>
       {/* Debug info and fallback */}
-      {!iframeLoaded && (
+      {!iframeLoaded && debugMsg && debugMsg.toLowerCase().includes('error') && (
         <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white bg-opacity-80 rounded-lg px-6 py-3 shadow-lg z-50">
           <div className="text-red-600 font-bold mb-2">Video call not loaded yet.</div>
           <div className="text-xs text-gray-700 mb-2">{debugMsg}</div>
