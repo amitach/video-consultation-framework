@@ -19,6 +19,8 @@ export const PersonaSetup: React.FC<PersonaSetupProps> = ({ onPersonaCreated }) 
   const [pipelineMode, setPipelineMode] = useState('full');
   const [systemPrompt, setSystemPrompt] = useState('As a compassionate healthcare assistant, you provide clear, empathetic, and professional support to patients during video consultations.');
   const [conversationUrl, setConversationUrl] = useState<string | null>(null);
+  const [activeConversations, setActiveConversations] = useState<any[]>([]);
+  const [showEndConversations, setShowEndConversations] = useState(false);
 
   const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -57,6 +59,50 @@ export const PersonaSetup: React.FC<PersonaSetupProps> = ({ onPersonaCreated }) 
     }
   };
 
+  const fetchActiveConversations = async () => {
+    setIsCreating(true);
+    setError(null);
+    try {
+      const response = await fetch('https://tavusapi.com/v2/conversations', {
+        method: 'GET',
+        headers: {
+          'x-api-key': import.meta.env.VITE_TAVUS_API_KEY,
+        },
+      });
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        setActiveConversations(data.filter((c) => c.status === 'active'));
+      } else if (Array.isArray(data.conversations)) {
+        setActiveConversations(data.conversations.filter((c) => c.status === 'active'));
+      } else {
+        setActiveConversations([]);
+      }
+      setShowEndConversations(true);
+    } catch (err) {
+      setError('Failed to fetch active conversations.');
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
+  const endConversation = async (conversationId: string) => {
+    setIsCreating(true);
+    setError(null);
+    try {
+      await fetch(`https://tavusapi.com/v2/conversations/${conversationId}/end`, {
+        method: 'POST',
+        headers: {
+          'x-api-key': import.meta.env.VITE_TAVUS_API_KEY,
+        },
+      });
+      setActiveConversations((prev) => prev.filter((c) => c.conversation_id !== conversationId));
+    } catch (err) {
+      setError('Failed to end conversation.');
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
   const handleStartConversation = async () => {
     setIsCreating(true);
     setError(null);
@@ -76,6 +122,9 @@ export const PersonaSetup: React.FC<PersonaSetupProps> = ({ onPersonaCreated }) 
       console.log('Tavus Conversation API response:', data);
       if (data.conversation_url) {
         setConversationUrl(data.conversation_url);
+      } else if (data.message && data.message.includes('maximum concurrent conversations')) {
+        setError('You have reached the maximum number of active video calls. Please end an existing call before starting a new one.');
+        fetchActiveConversations();
       } else {
         setError('Failed to start conversation.');
       }
@@ -258,8 +307,47 @@ export const PersonaSetup: React.FC<PersonaSetupProps> = ({ onPersonaCreated }) 
     }
   };
 
+  // Always render ConversationRoom if conversationUrl is set
   if (conversationUrl) {
     return <ConversationRoom conversationUrl={conversationUrl} />;
+  }
+
+  // UI for ending active conversations
+  if (showEndConversations) {
+    return (
+      <div className="max-w-xl mx-auto mt-12 p-8 bg-white rounded-xl shadow-lg">
+        <h2 className="text-2xl font-bold mb-4 text-red-600">Active Conversations</h2>
+        <p className="mb-4 text-healthcare-700">You have reached the maximum number of active video calls. Please end one or more of the following conversations to continue.</p>
+        {activeConversations.length === 0 ? (
+          <p className="text-green-600">No active conversations found. Try again in a moment.</p>
+        ) : (
+          <ul className="space-y-4">
+            {activeConversations.map((conv) => (
+              <li key={conv.conversation_id} className="flex items-center justify-between bg-healthcare-50 p-4 rounded-lg border border-healthcare-200">
+                <div>
+                  <div className="font-medium text-healthcare-800">{conv.conversation_name || conv.conversation_id}</div>
+                  <div className="text-xs text-healthcare-600">ID: {conv.conversation_id}</div>
+                  <div className="text-xs text-healthcare-600">Status: {conv.status}</div>
+                </div>
+                <button
+                  onClick={() => endConversation(conv.conversation_id)}
+                  className="ml-4 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-bold transition-colors"
+                  disabled={isCreating}
+                >
+                  End
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button
+          onClick={() => setShowEndConversations(false)}
+          className="mt-6 px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 font-bold"
+        >
+          Back
+        </button>
+      </div>
+    );
   }
 
   return (
