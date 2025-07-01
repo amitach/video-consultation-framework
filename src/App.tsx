@@ -837,6 +837,21 @@ function ZiggyHomePage() {
         />
       </a>
 
+      {/* Floating CTA Button - Bottom Right, above Bolt badge, mobile clean */}
+      <div className="fixed z-50 right-4 bottom-24 sm:bottom-24 w-auto">
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-3 bg-[#f8f8d8] text-[#181c1f] font-bold text-sm sm:text-base rounded-full shadow hover:bg-[#fffbe6] transition-all duration-200 focus:outline-none mb-2 sm:mb-0"
+          style={{ minWidth: '0' }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+            <rect x="4" y="8" width="16" height="10" rx="4" fill="none" stroke="currentColor" strokeWidth="2" />
+            <path d="M20 14l2 1.5V8.5L20 10" stroke="currentColor" strokeWidth="2" />
+          </svg>
+          <span className="truncate">Talk to a Comedian Now</span>
+        </button>
+      </div>
+
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
