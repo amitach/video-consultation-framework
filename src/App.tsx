@@ -36,8 +36,16 @@ function ZiggyHomePage() {
               Your AI Video Call Sidekick
             </h2>
             <p className="text-base md:text-lg text-blue-800 mb-2 font-medium">
-              Talk face-to-face with Ziggy, the world's first AI you can actually video call! Ask questions, share a laugh, or just chat—Ziggy responds in real time, just like a real person.
+              Talk face-to-face with Ziggy, an incredibly fun AI you can actually video call! Ask questions, share a laugh, or just chat—Ziggy responds in real time, just like a real person.
             </p>
+            <div className="flex flex-wrap gap-2 justify-center">
+              <span className="px-3 py-1 bg-white/50 rounded-full text-sm text-blue-800 font-medium border border-blue-200">
+                "Give me a one minute piece on Ryan Breslow, the CEO of Bolt.new" 🎭
+              </span>
+              <span className="px-3 py-1 bg-white/50 rounded-full text-sm text-blue-800 font-medium border border-blue-200">
+                "Tell me a funny story about technology" 😄
+              </span>
+            </div>
             <p className="text-sm text-blue-700 mb-2">
               Click below to start a live video conversation with your AI assistant. No downloads, no waiting—just instant, interactive fun!
             </p>
