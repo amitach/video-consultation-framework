@@ -13,6 +13,7 @@ function ZiggyHomePage() {
   const navigate = useNavigate();
   const [showWaitlistForm, setShowWaitlistForm] = React.useState(false);
   const [showAbout, setShowAbout] = React.useState(false);
+  const [showPricing, setShowPricing] = React.useState(false);
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       {/* Background with animated gradient */}
@@ -27,10 +28,11 @@ function ZiggyHomePage() {
           </div>
           <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">ZIGGY</span>
         </div>
-        <div className="hidden md:flex space-x-8 text-sm text-gray-300">
-          <a href="#features" className="hover:text-white transition-colors">Features</a>
-          <a href="#demo" className="hover:text-white transition-colors">Demo</a>
-          <button onClick={() => setShowAbout(true)} className="hover:text-white transition-colors">About</button>
+        <div className="hidden md:flex space-x-2 text-sm">
+          <a href="#features" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 no-underline">Features</a>
+          <button onClick={() => setShowPricing(true)} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 bg-transparent border-none cursor-pointer font-inherit">Pricing</button>
+          <a href="#demo" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 no-underline">Demo</a>
+          <button onClick={() => setShowAbout(true)} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 bg-transparent border-none cursor-pointer font-inherit">About</button>
         </div>
       </nav>
 
@@ -89,21 +91,33 @@ function ZiggyHomePage() {
                   onClick={() => navigate('/dashboard')}
                   className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-orange-600 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
                 >
-                  <span className="relative z-10">Start Laughing with Ziggy - FREE!</span>
+                  <span className="relative z-10">Try Ziggy Free - Limited Time!</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-orange-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
                 </button>
                 
-                <button 
-                  onClick={() => setShowWaitlistForm(true)}
-                  className="px-6 py-3 bg-white/5 border border-white/20 rounded-xl font-medium text-sm transition-all duration-300 hover:bg-white/10 hover:border-white/30 text-gray-300"
-                >
-                  <span className="flex items-center justify-center space-x-2">
-                    <span>🚀</span>
-                    <span>Get Early Access to Personalized Features</span>
-                  </span>
-                </button>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button 
+                    onClick={() => setShowPricing(true)}
+                    className="flex-1 px-6 py-3 bg-white/10 border border-white/30 rounded-xl font-medium text-sm transition-all duration-300 hover:bg-white/20 hover:border-white/40 text-white"
+                  >
+                    <span className="flex items-center justify-center space-x-2">
+                      <span>💎</span>
+                      <span>View Premium Plans</span>
+                    </span>
+                  </button>
+                  
+                  <button 
+                    onClick={() => setShowWaitlistForm(true)}
+                    className="flex-1 px-6 py-3 bg-white/5 border border-white/20 rounded-xl font-medium text-sm transition-all duration-300 hover:bg-white/10 hover:border-white/30 text-gray-300"
+                  >
+                    <span className="flex items-center justify-center space-x-2">
+                      <span>🚀</span>
+                      <span>Early Access Waitlist</span>
+                    </span>
+                  </button>
+                </div>
                 
-                <p className="text-xs text-gray-500 text-center">No credit card required • Instant access • Join 1000+ beta users</p>
+                <p className="text-xs text-gray-500 text-center">Start free • Upgrade anytime • Cancel whenever</p>
               </div>
 
               {/* Trust Indicators */}
@@ -444,6 +458,242 @@ function ZiggyHomePage() {
         </div>
       )}
 
+      {/* Pricing Modal */}
+      {showPricing && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-white/20">
+              <h3 className="text-2xl font-bold text-white">Choose Your Comedy Experience</h3>
+              <button 
+                onClick={() => setShowPricing(false)}
+                className="w-10 h-10 bg-red-500/80 hover:bg-red-500 rounded-full flex items-center justify-center transition-colors shadow-lg border-2 border-white/30"
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-8 overflow-y-auto max-h-[calc(90vh-120px)]">
+              
+              {/* Current Free Access */}
+              <div className="text-center mb-12 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-6">
+                <div className="inline-flex items-center space-x-2 bg-green-500/20 border border-green-500/30 rounded-full px-4 py-2 text-sm mb-4">
+                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                  <span className="text-green-300 font-semibold">LIMITED TIME BETA</span>
+                </div>
+                <h4 className="text-xl font-bold text-white mb-2">All Premium Features Currently FREE!</h4>
+                <p className="text-gray-300 text-sm">Get unlimited access to everything while we're in beta. When we launch, these will be premium features.</p>
+              </div>
+
+              {/* Pricing Tiers */}
+              <div className="grid lg:grid-cols-4 gap-6 mb-12">
+                
+                {/* Free Tier */}
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 relative">
+                  <div className="text-center mb-6">
+                    <h4 className="text-lg font-bold text-white mb-2">Ziggy Free</h4>
+                    <div className="text-3xl font-bold text-gray-300 mb-1">$0</div>
+                    <div className="text-sm text-gray-400">Forever</div>
+                  </div>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">5 minutes daily</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Basic comedy content</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Standard jokes & stories</span>
+                    </li>
+                  </ul>
+                  <button className="w-full py-3 border border-gray-600 rounded-xl font-medium text-sm text-gray-300 bg-gray-800 cursor-default" disabled>
+                    Current Plan
+                  </button>
+                </div>
+
+                {/* Personalized Comedy Pro */}
+                <div className="bg-gradient-to-b from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 rounded-2xl p-6 relative opacity-60 pointer-events-none">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">COMING SOON</span>
+                  </div>
+                  <div className="text-center mb-6">
+                    <h4 className="text-lg font-bold text-white mb-2">Comedy Pro</h4>
+                    <div className="text-3xl font-bold text-purple-300 mb-1">$9.99</div>
+                    <div className="text-sm text-gray-400">per month</div>
+                  </div>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Unlimited sessions</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Personalized humor from your data</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Custom roasts & life-based jokes</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Daily comedy briefings</span>
+                    </li>
+                  </ul>
+                  <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed" disabled>
+                    Coming Soon
+                  </button>
+                </div>
+
+                {/* Social Comedy Plus */}
+                <div className="bg-gradient-to-b from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-2xl p-6 relative opacity-60 pointer-events-none">
+                  <div className="text-center mb-6">
+                    <h4 className="text-lg font-bold text-white mb-2">Social Plus</h4>
+                    <div className="text-3xl font-bold text-orange-300 mb-1">$19.99</div>
+                    <div className="text-sm text-gray-400">per month</div>
+                  </div>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Everything in Pro</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Group sessions (up to 8 friends)</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Comedy battles & competitions</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Shareable comedy clips</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Multiple comedian personalities</span>
+                    </li>
+                  </ul>
+                  <button className="w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed" disabled>
+                    Coming Soon
+                  </button>
+                </div>
+
+                {/* Professional Entertainment */}
+                <div className="bg-gradient-to-b from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-2xl p-6 relative opacity-60 pointer-events-none">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">COMING SOON</span>
+                  </div>
+                  <div className="text-center mb-6">
+                    <h4 className="text-lg font-bold text-white mb-2">Professional</h4>
+                    <div className="text-3xl font-bold text-blue-300 mb-1">$49.99</div>
+                    <div className="text-sm text-gray-400">per month</div>
+                  </div>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Everything in Social Plus</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Corporate event integration</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Brand-specific humor</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Analytics dashboard</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">White-label options</span>
+                    </li>
+                  </ul>
+                  <button className="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed" disabled>
+                    Coming Soon
+                  </button>
+                </div>
+              </div>
+
+              {/* Special Features */}
+              <div className="mb-8">
+                <h4 className="text-2xl font-bold text-white text-center mb-8">Premium Add-Ons</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  
+                  {/* Special Occasions */}
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <span className="text-2xl">🎉</span>
+                      <h5 className="text-lg font-bold text-white">Special Occasions</h5>
+                    </div>
+                    <p className="text-gray-400 text-sm mb-4">Custom comedy for life's special moments</p>
+                    <ul className="space-y-2 mb-4">
+                      <li className="flex items-center justify-between">
+                        <span className="text-sm text-gray-300">Birthday Roasts</span>
+                        <span className="text-sm text-yellow-400 font-medium">$4.99</span>
+                      </li>
+                      <li className="flex items-center justify-between">
+                        <span className="text-sm text-gray-300">Anniversary Specials</span>
+                        <span className="text-sm text-yellow-400 font-medium">$6.99</span>
+                      </li>
+                      <li className="flex items-center justify-between">
+                        <span className="text-sm text-gray-300">Work Presentations</span>
+                        <span className="text-sm text-yellow-400 font-medium">$9.99</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Creator Studio */}
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <span className="text-2xl">🎬</span>
+                      <h5 className="text-lg font-bold text-white">Creator Studio</h5>
+                    </div>
+                    <p className="text-gray-400 text-sm mb-4">Become a better comedian yourself</p>
+                    <ul className="space-y-2 mb-4">
+                      <li className="flex items-center justify-between">
+                        <span className="text-sm text-gray-300">Comedy Writing Assistant</span>
+                        <span className="text-sm text-purple-400 font-medium">$99.99/mo</span>
+                      </li>
+                      <li className="flex items-center justify-between">
+                        <span className="text-sm text-gray-300">Practice Partner</span>
+                        <span className="text-sm text-purple-400 font-medium">Included</span>
+                      </li>
+                      <li className="flex items-center justify-between">
+                        <span className="text-sm text-gray-300">Voice Cloning</span>
+                        <span className="text-sm text-purple-400 font-medium">Included</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Enterprise Solutions */}
+              <div className="text-center bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8">
+                <h4 className="text-xl font-bold text-white mb-4">Enterprise Solutions</h4>
+                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+                  Transform your workplace culture with AI-powered comedy. Perfect for team building, 
+                  presentations, and corporate events.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4 mb-6">
+                  <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm">Slack Integration</span>
+                  <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-300 text-sm">Teams Integration</span>
+                  <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-300 text-sm">Custom Branding</span>
+                  <span className="px-3 py-1 bg-orange-500/20 border border-orange-500/30 rounded-full text-orange-300 text-sm">Analytics</span>
+                </div>
+                <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-semibold text-white hover:from-blue-500 hover:to-purple-500 transition-colors">
+                  Contact Enterprise Sales
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* About Modal */}
       {showAbout && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -483,10 +733,10 @@ function ZiggyHomePage() {
                       AA
                     </div>
                     <h5 className="text-xl font-bold text-white mb-2">Amit Acharya</h5>
-                    <p className="text-purple-300 text-sm mb-3 font-medium">Co-Founder & Technical Lead</p>
+                    <p className="text-purple-300 text-sm mb-3 font-medium">Co-Founder & Product Engineer</p>
                     <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                       Full-stack engineer with expertise in AI integration and real-time video technologies. 
-                      Passionate about creating seamless user experiences that push the boundaries of what's possible.
+                      Bridges technical implementation with product vision to create seamless user experiences.
                     </p>
                     <a 
                       href="https://github.com/amitach" 
@@ -507,10 +757,10 @@ function ZiggyHomePage() {
                       RA
                     </div>
                     <h5 className="text-xl font-bold text-white mb-2">Rahul Acharya</h5>
-                    <p className="text-orange-300 text-sm mb-3 font-medium">Co-Founder & AI Strategist</p>
+                    <p className="text-orange-300 text-sm mb-3 font-medium">Co-Founder & AI Engineer</p>
                     <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                      AI researcher and product visionary focused on natural language processing and conversational AI. 
-                      Dedicated to making AI interactions more human and entertaining.
+                      AI engineer and researcher focused on natural language processing and conversational AI systems. 
+                      Dedicated to building AI interactions that feel genuinely human and entertaining.
                     </p>
                     <a 
                       href="https://github.com/llk23r" 
