@@ -35,10 +35,29 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
   const conversationId = extractConversationId(conversationUrl);
 
   // End call handler
-  const handleEndCall = () => {
+  const handleEndCall = async () => {
     if (callFrameRef.current) {
-      callFrameRef.current.leave();
       setEnding(true);
+      setDebugMsg('Ending conversation...');
+      
+      // First call Tavus API to end the conversation
+      if (conversationId) {
+        try {
+          const result = await tavusService.endConversation(conversationId);
+          if (result.success) {
+            setDebugMsg('Conversation ended successfully');
+          } else {
+            console.warn('Failed to end conversation via Tavus API:', result.error);
+            setDebugMsg('Warning: Could not end conversation properly');
+          }
+        } catch (error) {
+          console.error('Error ending conversation:', error);
+          setDebugMsg('Warning: Could not end conversation properly');
+        }
+      }
+      
+      // Then leave the Daily frame
+      callFrameRef.current.leave();
       setDebugMsg('Leaving meeting...');
     }
   };
@@ -106,8 +125,18 @@ const ConversationRoom: React.FC<ConversationRoomProps> = ({ conversationUrl }) 
             setDebugMsg(`Connection error: ${e.errorMsg || 'Unknown error'}`);
           });
 
-          callFrameRef.current.on('left-meeting', () => {
+          callFrameRef.current.on('left-meeting', async () => {
             setDebugMsg('Left the conversation');
+            
+            // Ensure Tavus conversation is ended if not already done
+            if (conversationId && !ending) {
+              try {
+                await tavusService.endConversation(conversationId);
+              } catch (error) {
+                console.warn('Failed to end conversation on leave:', error);
+              }
+            }
+            
             navigate('/');
           });
 

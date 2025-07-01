@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { tavusService } from '../services/tavusService';
 const DAILY_SCRIPT_ID = 'daily-js-embed-script';
 function extractConversationId(url) {
     // Tavus conversation_url is like https://tavus.daily.co/c13ca81cd950f4b6
@@ -22,10 +23,29 @@ const ConversationRoom = ({ conversationUrl }) => {
     const [ending, setEnding] = useState(false);
     const conversationId = extractConversationId(conversationUrl);
     // End call handler
-    const handleEndCall = () => {
+    const handleEndCall = async () => {
         if (callFrameRef.current) {
-            callFrameRef.current.leave();
             setEnding(true);
+            setDebugMsg('Ending conversation...');
+            // First call Tavus API to end the conversation
+            if (conversationId) {
+                try {
+                    const result = await tavusService.endConversation(conversationId);
+                    if (result.success) {
+                        setDebugMsg('Conversation ended successfully');
+                    }
+                    else {
+                        console.warn('Failed to end conversation via Tavus API:', result.error);
+                        setDebugMsg('Warning: Could not end conversation properly');
+                    }
+                }
+                catch (error) {
+                    console.error('Error ending conversation:', error);
+                    setDebugMsg('Warning: Could not end conversation properly');
+                }
+            }
+            // Then leave the Daily frame
+            callFrameRef.current.leave();
             setDebugMsg('Leaving meeting...');
         }
     };
@@ -82,8 +102,17 @@ const ConversationRoom = ({ conversationUrl }) => {
                         console.error('Daily call frame error:', e);
                         setDebugMsg(`Connection error: ${e.errorMsg || 'Unknown error'}`);
                     });
-                    callFrameRef.current.on('left-meeting', () => {
+                    callFrameRef.current.on('left-meeting', async () => {
                         setDebugMsg('Left the conversation');
+                        // Ensure Tavus conversation is ended if not already done
+                        if (conversationId && !ending) {
+                            try {
+                                await tavusService.endConversation(conversationId);
+                            }
+                            catch (error) {
+                                console.warn('Failed to end conversation on leave:', error);
+                            }
+                        }
                         navigate('/');
                     });
                     // Join the conversation

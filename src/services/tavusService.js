@@ -126,10 +126,10 @@ class TavusService {
             if (!response.ok) {
                 throw new Error(`Tavus API error: ${response.statusText}`);
             }
-            const data = await response.json();
+            // Tavus API returns 204 No Content for successful end conversation
             return {
                 success: true,
-                data,
+                data: null,
                 timestamp: new Date().toISOString(),
             };
         }

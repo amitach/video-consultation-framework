@@ -11,115 +11,605 @@ import { v4 as uuidv4 } from 'uuid';
 
 function ZiggyHomePage() {
   const navigate = useNavigate();
+  const [showWaitlistForm, setShowWaitlistForm] = React.useState(false);
+  const [showAbout, setShowAbout] = React.useState(false);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 flex flex-col justify-between items-center text-center px-4 relative">
-      <div className="w-full flex-1 flex flex-col justify-center items-center">
-        <div className="max-w-2xl w-full">
-          <div className="flex flex-col items-center mb-4 md:mb-6">
-            <div className="relative flex flex-col items-center mb-4">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-tr from-pink-500 via-yellow-400 to-blue-500 flex items-center justify-center shadow-2xl border-8 border-white mb-2">
-                <span className="text-6xl font-extrabold text-white drop-shadow-lg">😂</span>
-              </div>
-              <div className="absolute bottom-0 right-0 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-blue-200">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32" className="w-8 h-8 text-blue-500">
-                  <rect x="4" y="8" width="16" height="16" rx="4" fill="#3b82f6"/>
-                  <rect x="4" y="8" width="16" height="16" rx="4" fill="#3b82f6"/>
-                  <rect x="4" y="8" width="16" height="16" rx="4" fill="#3b82f6"/>
-                  <path d="M20 14l6-4v12l-6-4v-4z" fill="#fbbf24"/>
-                </svg>
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-yellow-500 to-blue-600 mb-2 drop-shadow-lg">
-              Meet Ziggy
-            </h1>
-            <h2 className="text-xl md:text-2xl font-bold text-blue-900 mb-1">
-              Your AI Standup Comedian!
-            </h2>
-            <p className="text-base md:text-lg text-blue-800 mb-2 font-medium">
-              Talk face-to-face with Ziggy, an incredibly fun AI you can actually video call! Ask questions, share a laugh, or just chat—Ziggy responds in real time, just like a real person.
-            </p>
-            <div className="flex flex-wrap gap-2 justify-center">
-              <span className="px-3 py-1 bg-white/50 rounded-full text-sm text-blue-800 font-medium border border-blue-200">
-                "Give me a one minute piece on Ryan Breslow, the CEO of Bolt.new" 🎭
-              </span>
-              <span className="px-3 py-1 bg-white/50 rounded-full text-sm text-blue-800 font-medium border border-blue-200">
-                "Tell me a funny story about technology" 😄
-              </span>
-            </div>
-            <p className="text-sm text-blue-700 mb-2">
-              Click below to start a live video conversation with your AI assistant. No downloads, no waiting—just instant, interactive fun!
-            </p>
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Background with animated gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-orange-900/20"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]"></div>
+      
+      {/* Navigation */}
+      <nav className="relative z-10 flex justify-between items-center p-6 lg:p-8">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full flex items-center justify-center">
+            <span className="text-xl font-bold">🎭</span>
           </div>
+          <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">ZIGGY</span>
         </div>
-        {/* Video Call Experience Section */}
-        <div className="w-full max-w-3xl mx-auto mb-4 md:mb-0">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
-            {/* User Card */}
-            <div className="flex flex-col items-center bg-white rounded-2xl shadow-lg p-4 md:p-6 w-full md:w-1/3 border border-blue-100">
-              <div className="w-14 h-14 rounded-full bg-blue-200 flex items-center justify-center mb-2">
-                <span className="text-2xl">🧑‍💻</span>
+        <div className="hidden md:flex space-x-8 text-sm text-gray-300">
+          <a href="#features" className="hover:text-white transition-colors">Features</a>
+          <a href="#demo" className="hover:text-white transition-colors">Demo</a>
+          <button onClick={() => setShowAbout(true)} className="hover:text-white transition-colors">About</button>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative z-10 px-6 lg:px-8 pt-4 pb-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Content */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-yellow-500/15 to-orange-500/15 border border-yellow-500/30 rounded-full px-4 py-2 text-sm">
+                  <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+                  <span className="text-yellow-300 font-semibold">FREE BETA ACCESS</span>
+                </div>
+                
+                <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+                  Meet <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">Ziggy</span>
+                </h1>
+                
+                <h2 className="text-xl lg:text-2xl text-gray-300 font-light">
+                  Your AI Standup Comedian Who Never Runs Out of Material
+                </h2>
+                
+                <p className="text-lg text-gray-400 leading-relaxed max-w-xl">
+                  Experience the future of comedy with Ziggy - an AI comedian you can actually video call. 
+                  Real-time conversations, personalized jokes, and interactive entertainment like never before.
+                </p>
+                
+                <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-xl p-4 max-w-xl">
+                  <div className="flex items-start space-x-3">
+                    <span className="text-xl">🎉</span>
+                    <div>
+                      <p className="text-yellow-300 font-semibold text-sm mb-1">Limited Time: Completely FREE!</p>
+                      <p className="text-gray-300 text-sm">Try Ziggy now while we're in beta. When we launch officially, this will be a premium experience. Get unlimited access today!</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="font-bold text-blue-900 mb-1">You</div>
-              <div className="text-blue-600 text-xs md:text-sm">Ask anything, share a story, or just say hi!</div>
-            </div>
-            {/* Chat Bubble */}
-            <div className="hidden md:flex flex-col items-center">
-              <div className="bg-gradient-to-r from-pink-200 via-yellow-100 to-blue-200 rounded-full px-4 py-2 md:px-6 md:py-3 shadow text-blue-900 font-semibold text-base md:text-lg border border-blue-100">
-                <span>💬 Real-time Video Chat</span>
-              </div>
-            </div>
-            {/* Ziggy Card */}
-            <div className="flex flex-col items-center bg-white rounded-2xl shadow-lg p-4 md:p-6 w-full md:w-1/3 border border-pink-100">
-              <div className="w-14 h-14 rounded-full bg-pink-200 flex items-center justify-center mb-2 relative">
-                <span className="text-2xl">😂</span>
-                <span className="absolute bottom-0 right-0 w-5 h-5 bg-white rounded-full flex items-center justify-center border-2 border-pink-200">
-                  <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' className='w-3 h-3 text-pink-500'><rect x='3' y='6' width='12' height='12' rx='3' fill='#ec4899'/><path d='M15 10l5-3.5v10L15 13v-3z' fill='#fde68a'/></svg>
+
+              {/* Feature Pills */}
+              <div className="flex flex-wrap gap-3">
+                <span className="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full text-sm text-purple-300">
+                  🎤 Live Video Calls
+                </span>
+                <span className="inline-flex items-center px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full text-sm text-orange-300">
+                  🤖 AI-Powered Comedy
+                </span>
+                <span className="inline-flex items-center px-4 py-2 bg-pink-500/10 border border-pink-500/20 rounded-full text-sm text-pink-300">
+                  ⚡ Instant Connection
                 </span>
               </div>
-              <div className="font-bold text-pink-900 mb-1">Ziggy</div>
-              <div className="text-pink-600 text-xs md:text-sm">Your AI video call sidekick—funny, smart, and always ready to chat!</div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col gap-4 pt-2">
+                <button
+                  onClick={() => navigate('/dashboard')}
+                  className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-orange-600 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
+                >
+                  <span className="relative z-10">Start Laughing with Ziggy - FREE!</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-orange-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                </button>
+                
+                <button 
+                  onClick={() => setShowWaitlistForm(true)}
+                  className="px-6 py-3 bg-white/5 border border-white/20 rounded-xl font-medium text-sm transition-all duration-300 hover:bg-white/10 hover:border-white/30 text-gray-300"
+                >
+                  <span className="flex items-center justify-center space-x-2">
+                    <span>🚀</span>
+                    <span>Get Early Access to Personalized Features</span>
+                  </span>
+                </button>
+                
+                <p className="text-xs text-gray-500 text-center">No credit card required • Instant access • Join 1000+ beta users</p>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="flex items-center space-x-6 pt-8 border-t border-gray-800">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-gray-300">AI Powered</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  <span className="text-sm text-gray-300">Instant Setup</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                  <span className="text-sm text-gray-300">Always Available</span>
+                </div>
+              </div>
             </div>
-          </div>
-          {/* Mobile chat bubble */}
-          <div className="flex md:hidden justify-center mt-2">
-            <div className="bg-gradient-to-r from-pink-200 via-yellow-100 to-blue-200 rounded-full px-4 py-2 shadow text-blue-900 font-semibold text-sm border border-blue-100">
-              <span>💬 Real-time Video Chat</span>
+
+            {/* Right Column - Visual */}
+            <div className="relative">
+              {/* Main Character Display */}
+              <div className="relative mx-auto w-80 h-80 lg:w-96 lg:h-96">
+                {/* Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-orange-500/30 rounded-full blur-3xl"></div>
+                
+                {/* Character Circle */}
+                <div className="relative w-full h-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-500 rounded-full flex items-center justify-center shadow-2xl">
+                  <div className="w-4/5 h-4/5 bg-black/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <span className="text-8xl animate-bounce">😂</span>
+                  </div>
+                  
+                  {/* Floating Elements */}
+                  <div className="absolute top-4 right-4 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  
+                  <div className="absolute bottom-8 left-4 w-8 h-8 bg-green-400/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Comedy Bubbles */}
+              <div className="absolute top-12 left-8 bg-white/10 backdrop-blur-sm rounded-2xl p-3 animate-float">
+                <span className="text-2xl">🎭</span>
+              </div>
+              <div className="absolute bottom-12 right-8 bg-white/10 backdrop-blur-sm rounded-2xl p-3 animate-float-delayed">
+                <span className="text-2xl">🎪</span>
+              </div>
+              <div className="absolute top-1/2 -right-4 bg-white/10 backdrop-blur-sm rounded-2xl p-3 animate-float-slow">
+                <span className="text-2xl">🎨</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* Start Button always at the bottom of the fold */}
-      <div className="w-full px-0 md:px-0 mb-2 md:mb-4">
-        <button
-          onClick={() => navigate('/dashboard')}
-          className="w-full py-4 px-8 rounded-xl bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 text-white text-2xl font-bold shadow-lg hover:scale-105 transition-transform duration-200 animate-wiggle pointer-events-auto"
-        >
-          Start Laughing with Ziggy
-        </button>
-      </div>
-      {/* Bolt.new badge bottom right */}
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="relative z-10 px-6 lg:px-8 py-20 bg-white/5 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose Ziggy?</h3>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Experience comedy like never before with cutting-edge AI technology
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center space-y-4 p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+              <div className="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-2xl">
+                🎥
+              </div>
+              <h4 className="text-xl font-semibold">Live Video Interaction</h4>
+              <p className="text-gray-400">Face-to-face conversations with real-time responses and expressions</p>
+            </div>
+
+            <div className="text-center space-y-4 p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+              <div className="w-16 h-16 mx-auto bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-2xl">
+                🧠
+              </div>
+              <h4 className="text-xl font-semibold">Personalized Comedy</h4>
+              <p className="text-gray-400">Jokes and stories tailored to your interests and conversation style</p>
+            </div>
+
+            <div className="text-center space-y-4 p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+              <div className="w-16 h-16 mx-auto bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-2xl">
+                ⚡
+              </div>
+              <h4 className="text-xl font-semibold">Instant Access</h4>
+              <p className="text-gray-400">No downloads, no setup - just click and start laughing immediately</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Demo Section */}
+      <section id="demo" className="relative z-10 px-6 lg:px-8 py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 className="text-3xl lg:text-4xl font-bold mb-8">Try These Sample Prompts</h3>
+          
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl p-6 text-left">
+              <div className="flex items-start space-x-3">
+                <span className="text-2xl">🎭</span>
+                <div>
+                  <h4 className="font-semibold mb-2 text-purple-300">Comedy Roast</h4>
+                  <p className="text-gray-300">"Give me a one minute roast about Ryan Breslow, the CEO of Bolt.new"</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-2xl p-6 text-left">
+              <div className="flex items-start space-x-3">
+                <span className="text-2xl">💻</span>
+                <div>
+                  <h4 className="font-semibold mb-2 text-orange-300">Tech Humor</h4>
+                  <p className="text-gray-300">"Tell me a funny story about modern technology and social media"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="group relative px-12 py-6 bg-gradient-to-r from-purple-600 to-orange-600 rounded-2xl font-bold text-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
+          >
+            <span className="relative z-10">Start Your Comedy Session Now</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-orange-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+          </button>
+        </div>
+      </section>
+
+      {/* Upcoming Features Section */}
+      <section className="relative z-10 px-6 lg:px-8 py-20 bg-gradient-to-r from-purple-900/10 to-orange-900/10 border-y border-white/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-500/20 to-orange-500/20 border border-purple-500/30 rounded-full px-4 py-2 text-sm mb-6">
+              <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+              <span className="text-purple-300">Coming Soon</span>
+            </div>
+            <h3 className="text-3xl lg:text-5xl font-bold mb-4">
+              Next Level <span className="bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">Personalization</span>
+            </h3>
+            <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+              The future of comedy is personal. Connect your data and watch Ziggy create material that's uniquely yours.
+            </p>
+          </div>
+
+          {/* Flow Design */}
+          <div className="relative">
+            {/* Connection Line */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500/30 via-orange-500/30 to-purple-500/30 transform -translate-y-1/2"></div>
+            
+            <div className="grid lg:grid-cols-3 gap-8 relative">
+              {/* Step 1 - Connect */}
+              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-colors">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                  1
+                </div>
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center">
+                  <svg className="w-10 h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-bold mb-4 text-white">Connect Your Data</h4>
+                <p className="text-gray-400 mb-6">Securely link your calendar, email, or social media for personalized content</p>
+                
+                {/* Data Source Options */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
+                        <span className="text-xs text-white">📅</span>
+                      </div>
+                      <span className="text-sm text-gray-300">Google Calendar</span>
+                    </div>
+                    <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-6 h-6 bg-red-500 rounded flex items-center justify-center">
+                        <span className="text-xs text-white">📧</span>
+                      </div>
+                      <span className="text-sm text-gray-300">Email Insights</span>
+                    </div>
+                    <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
+                        <span className="text-xs text-white">💬</span>
+                      </div>
+                      <span className="text-sm text-gray-300">Social Media</span>
+                    </div>
+                    <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 2 - Analyze */}
+              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-colors">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                  2
+                </div>
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-2xl flex items-center justify-center">
+                  <svg className="w-10 h-10 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-bold mb-4 text-white">AI Analysis</h4>
+                <p className="text-gray-400 mb-6">Ziggy analyzes your patterns, habits, and quirks to understand your unique story</p>
+                
+                {/* Analysis Indicators */}
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-lg p-4 border border-orange-500/20">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-semibold text-orange-300">Personality Mapping</span>
+                    </div>
+                    <p className="text-xs text-gray-400">Understanding your communication style and humor preferences</p>
+                  </div>
+                  <div className="bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-lg p-4 border border-red-500/20">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-semibold text-red-300">Pattern Recognition</span>
+                    </div>
+                    <p className="text-xs text-gray-400">Finding funny moments and recurring themes in your life</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 3 - Perform */}
+              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-colors">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                  3
+                </div>
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center">
+                  <svg className="w-10 h-10 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 6v12a2 2 0 002 2h8a2 2 0 002-2V10m-4 6h.01" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-bold mb-4 text-white">Personalized Comedy</h4>
+                <p className="text-gray-400 mb-6">Experience custom-tailored jokes, stories, and roasts based on your real life</p>
+                
+                {/* Example Output */}
+                <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-lg p-4 border border-pink-500/20 text-left">
+                  <div className="flex items-start space-x-3">
+                    <span className="text-lg">🎤</span>
+                    <div>
+                      <p className="text-sm text-pink-300 font-semibold mb-1">Custom Roast Example:</p>
+                      <p className="text-xs text-gray-300 italic">"I see you have 47 Zoom meetings this week... Are you trying to set a world record for 'most times saying you're on mute'?"</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Privacy Notice */}
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center space-x-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 text-sm">
+              <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <span className="text-green-300">100% Privacy Protected - Your data stays secure and is never stored permanently</span>
+            </div>
+          </div>
+
+          {/* Early Access CTA */}
+          <div className="text-center mt-8">
+            <button 
+              onClick={() => setShowWaitlistForm(true)}
+              className="group relative px-8 py-4 bg-gradient-to-r from-purple-600/50 to-orange-600/50 border border-purple-500/30 rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-orange-600 hover:border-purple-500"
+            >
+              <span className="relative z-10">Join Early Access Waitlist</span>
+            </button>
+            <p className="text-xs text-gray-500 mt-2">Be the first to experience hyper-personalized AI comedy</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 px-6 lg:px-8 py-12 border-t border-gray-800">
+        <div className="max-w-7xl mx-auto text-center text-gray-400">
+          <p>&copy; 2025 Ziggy AI Comedy. Experience the future of entertainment.</p>
+          <div className="mt-4">
+            <a 
+              href="https://devpost.com/software/ziggy-the-ai-standup-comedian" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors text-sm"
+            >
+              <span>🏆</span>
+              <span>Support us on Devpost</span>
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      {/* Waitlist Form Modal */}
+      {showWaitlistForm && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-white/20">
+              <h3 className="text-xl font-bold text-white">Join Early Access Waitlist</h3>
+              <button 
+                onClick={() => setShowWaitlistForm(false)}
+                className="w-10 h-10 bg-red-500/80 hover:bg-red-500 rounded-full flex items-center justify-center transition-colors shadow-lg border-2 border-white/30"
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+              <iframe 
+                src="https://docs.google.com/forms/d/e/1FAIpQLSdA5cX9OVspVqJZRILqk_HZvsnwjd4C9xC7A6-1kNWk29n2SQ/viewform?embedded=true" 
+                width="100%" 
+                height="800" 
+                frameBorder="0" 
+                marginHeight="0" 
+                marginWidth="0"
+                className="rounded-lg"
+              >
+                Loading…
+              </iframe>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* About Modal */}
+      {showAbout && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-white/20">
+              <h3 className="text-2xl font-bold text-white">About Ziggy</h3>
+              <button 
+                onClick={() => setShowAbout(false)}
+                className="w-10 h-10 bg-red-500/80 hover:bg-red-500 rounded-full flex items-center justify-center transition-colors shadow-lg border-2 border-white/30"
+              >
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-8 overflow-y-auto max-h-[calc(90vh-120px)]">
+              {/* Project Description */}
+              <div className="text-center mb-12">
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full flex items-center justify-center">
+                  <span className="text-4xl">🎭</span>
+                </div>
+                <h4 className="text-xl font-bold text-white mb-4">Revolutionizing AI Entertainment</h4>
+                <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
+                  Ziggy represents the next frontier in AI-powered entertainment. Built with cutting-edge video calling technology 
+                  and advanced neural networks for comedy generation, we're creating experiences that blur the line between artificial and authentic humor.
+                </p>
+              </div>
+
+              {/* Team Section */}
+              <div className="mb-8">
+                <h4 className="text-2xl font-bold text-white text-center mb-8">Meet the Creators</h4>
+                
+                <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                  {/* Amit Acharya */}
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl font-bold text-white">
+                      AA
+                    </div>
+                    <h5 className="text-xl font-bold text-white mb-2">Amit Acharya</h5>
+                    <p className="text-purple-300 text-sm mb-3 font-medium">Co-Founder & Technical Lead</p>
+                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                      Full-stack engineer with expertise in AI integration and real-time video technologies. 
+                      Passionate about creating seamless user experiences that push the boundaries of what's possible.
+                    </p>
+                    <a 
+                      href="https://github.com/amitach" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 px-4 py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg text-purple-300 hover:bg-purple-500/30 transition-colors text-sm"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                      <span>@amitach</span>
+                    </a>
+                  </div>
+
+                  {/* Rahul Acharya */}
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-3xl font-bold text-white">
+                      RA
+                    </div>
+                    <h5 className="text-xl font-bold text-white mb-2">Rahul Acharya</h5>
+                    <p className="text-orange-300 text-sm mb-3 font-medium">Co-Founder & AI Strategist</p>
+                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                      AI researcher and product visionary focused on natural language processing and conversational AI. 
+                      Dedicated to making AI interactions more human and entertaining.
+                    </p>
+                    <a 
+                      href="https://github.com/llk23r" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 px-4 py-2 bg-orange-500/20 border border-orange-500/30 rounded-lg text-orange-300 hover:bg-orange-500/30 transition-colors text-sm"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                      <span>@llk23r</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Technology Stack */}
+              <div className="text-center mb-8">
+                <h4 className="text-xl font-bold text-white mb-6">Built With</h4>
+                <div className="flex flex-wrap justify-center gap-3">
+                  <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm">React</span>
+                  <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-300 text-sm">TypeScript</span>
+                  <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-300 text-sm">WebRTC</span>
+                  <span className="px-3 py-1 bg-red-500/20 border border-red-500/30 rounded-full text-red-300 text-sm">Daily.co</span>
+                  <span className="px-3 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-300 text-sm">Tailwind CSS</span>
+                  <span className="px-3 py-1 bg-pink-500/20 border border-pink-500/30 rounded-full text-pink-300 text-sm">Vite</span>
+                </div>
+              </div>
+
+              {/* Devpost CTA */}
+              <div className="text-center bg-gradient-to-r from-purple-500/10 to-orange-500/10 border border-purple-500/20 rounded-2xl p-6">
+                <div className="mb-4">
+                  <span className="text-3xl mb-3 block">🏆</span>
+                  <h4 className="text-xl font-bold text-white mb-2">Love Ziggy? Show Your Support!</h4>
+                  <p className="text-gray-300 text-sm mb-4">
+                    We're competing in hackathons to bring you the best AI comedy experience. Your support means the world to us!
+                  </p>
+                </div>
+                <a 
+                  href="https://devpost.com/software/ziggy-the-ai-standup-comedian" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-purple-600 to-orange-600 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                  <span>★ Like Our Devpost Project</span>
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+                <p className="text-xs text-gray-400 mt-3">
+                  Takes 2 seconds • Helps us reach more comedy lovers • Completely free to like!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bolt.new badge */}
       <a
         href="https://bolt.new/"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Built with Bolt.new"
-        className="fixed bottom-4 right-4 z-50"
-        style={{ width: '56px', height: '56px' }}
+        className="fixed bottom-4 right-4 z-50 w-12 h-12 md:w-14 md:h-14"
       >
         <img
           src="https://raw.githubusercontent.com/kickiniteasy/bolt-hackathon-badge/main/src/public/bolt-badge/black_circle_360x360/black_circle_360x360.svg"
           alt="Built with Bolt.new"
-          style={{ width: '100%', height: '100%' }}
+          className="w-full h-full"
         />
       </a>
+
       <style>{`
-        @keyframes wiggle {
-          0%, 100% { transform: rotate(-2deg); }
-          50% { transform: rotate(2deg); }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
         }
-        .animate-wiggle { animation: wiggle 1.2s infinite; }
-        @media (max-width: 767px) {
-          .bolt-badge { width: 40px !important; height: 40px !important; }
+        
+        @keyframes float-delayed {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-float-delayed {
+          animation: float-delayed 4s ease-in-out infinite 1s;
+        }
+        
+        .animate-float-slow {
+          animation: float-slow 5s ease-in-out infinite 2s;
         }
       `}</style>
     </div>
@@ -187,24 +677,33 @@ function DashboardAutoStart() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 text-center">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-black to-orange-900 text-center text-white">
       <div className="max-w-lg w-full">
         <div className="flex flex-col items-center mb-8">
-          <span className="ziggy-emoji">😂</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold ziggy-gradient mb-2">Launching Ziggy...</h2>
-          <p className="text-lg text-blue-800 font-medium mb-4">Warming up the punchlines and prepping the virtual stage!</p>
+          <div className="relative mb-6">
+            <div className="w-32 h-32 bg-gradient-to-r from-purple-500 to-orange-500 rounded-full flex items-center justify-center animate-pulse">
+              <span className="text-6xl">😂</span>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-orange-500/30 rounded-full blur-2xl"></div>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent mb-2">
+            Launching Ziggy...
+          </h2>
+          <p className="text-lg text-gray-300 font-medium mb-4">
+            Warming up the punchlines and prepping the virtual stage!
+          </p>
         </div>
         {loading && (
           <div className="w-full flex justify-center">
-            <svg className="animate-spin h-12 w-12 text-pink-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin h-12 w-12 text-purple-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
             </svg>
           </div>
         )}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mt-4">
-            <div className="text-red-600 font-bold mb-2">{error}</div>
+          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 mt-4">
+            <div className="text-red-400 font-bold mb-2">{error}</div>
             <button
               onClick={() => window.location.reload()}
               className="mt-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
