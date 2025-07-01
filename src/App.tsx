@@ -848,7 +848,7 @@ function ZiggyHomePage() {
             <rect x="4" y="8" width="16" height="10" rx="4" fill="none" stroke="currentColor" strokeWidth="2" />
             <path d="M20 14l2 1.5V8.5L20 10" stroke="currentColor" strokeWidth="2" />
           </svg>
-          <span className="truncate">Talk to a Comedian Now</span>
+          <span className="truncate block">Talk to Ziggy Now!</span>          
         </button>
       </div>
 
