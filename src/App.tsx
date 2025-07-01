@@ -202,6 +202,9 @@ function ZiggyHomePage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      {/* Removed */}
+
       {/* Demo Section */}
       <section id="demo" className="relative z-10 px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto text-center">
@@ -765,7 +768,7 @@ function HomePage() {
         ) : (
           <PersonaSetup onPersonaCreated={handlePersonaCreated} />
         )}
-      </div>
+        </div>
     </div>
   );
 }
