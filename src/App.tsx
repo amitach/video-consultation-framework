@@ -489,7 +489,7 @@ function ZiggyHomePage() {
               <div className="grid lg:grid-cols-4 gap-6 mb-12">
                 
                 {/* Current Beta */}
-                <div className="bg-gradient-to-b from-green-500/10 to-emerald-500/10 border-2 border-green-500/30 rounded-2xl p-6 relative">
+                <div className="bg-gradient-to-b from-green-500/10 to-emerald-500/10 border-2 border-green-500/30 rounded-2xl p-6 relative flex flex-col">
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">AVAILABLE NOW</span>
                   </div>
@@ -498,7 +498,7 @@ function ZiggyHomePage() {
                     <div className="text-3xl font-bold text-green-300 mb-1">FREE</div>
                     <div className="text-sm text-gray-400">Limited time</div>
                   </div>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-3 mb-6 flex-grow">
                     <li className="flex items-center space-x-3">
                       <span className="w-2 h-2 bg-green-400 rounded-full"></span>
                       <span className="text-sm text-gray-300">Unlimited video calls</span>
@@ -518,14 +518,14 @@ function ZiggyHomePage() {
                   </ul>
                   <button 
                     onClick={() => setShowPricing(false)}
-                    className="w-full py-3 bg-green-600 hover:bg-green-700 rounded-xl font-medium text-sm text-white transition-colors"
+                    className="w-full py-3 bg-green-600 hover:bg-green-700 rounded-xl font-medium text-sm text-white transition-colors mt-auto"
                   >
                     Try It Now
                   </button>
                 </div>
 
                 {/* Personalized Comedy Pro */}
-                <div className="bg-gradient-to-b from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 rounded-2xl p-6 relative opacity-60 pointer-events-none">
+                <div className="bg-gradient-to-b from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 rounded-2xl p-6 relative opacity-60 pointer-events-none flex flex-col">
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full">COMING SOON</span>
                   </div>
@@ -534,7 +534,7 @@ function ZiggyHomePage() {
                     <div className="text-3xl font-bold text-purple-300 mb-1">$9.99</div>
                     <div className="text-sm text-gray-400">per month</div>
                   </div>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-3 mb-6 flex-grow">
                     <li className="flex items-center space-x-3">
                       <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
                       <span className="text-sm text-gray-300">Unlimited sessions</span>
@@ -552,19 +552,19 @@ function ZiggyHomePage() {
                       <span className="text-sm text-gray-300">Daily comedy briefings</span>
                     </li>
                   </ul>
-                  <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed" disabled>
+                  <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed mt-auto" disabled>
                     Coming Soon
                   </button>
                 </div>
 
                 {/* Social Comedy Plus */}
-                <div className="bg-gradient-to-b from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-2xl p-6 relative opacity-60 pointer-events-none">
+                <div className="bg-gradient-to-b from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-2xl p-6 relative opacity-60 pointer-events-none flex flex-col">
                   <div className="text-center mb-6">
                     <h4 className="text-lg font-bold text-white mb-2">Social Plus</h4>
                     <div className="text-3xl font-bold text-orange-300 mb-1">$19.99</div>
                     <div className="text-sm text-gray-400">per month</div>
                   </div>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-3 mb-6 flex-grow">
                     <li className="flex items-center space-x-3">
                       <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
                       <span className="text-sm text-gray-300">Everything in Pro</span>
@@ -586,13 +586,13 @@ function ZiggyHomePage() {
                       <span className="text-sm text-gray-300">Multiple comedian personalities</span>
                     </li>
                   </ul>
-                  <button className="w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed" disabled>
+                  <button className="w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed mt-auto" disabled>
                     Coming Soon
                   </button>
                 </div>
 
                 {/* Professional Entertainment */}
-                <div className="bg-gradient-to-b from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-2xl p-6 relative opacity-60 pointer-events-none">
+                <div className="bg-gradient-to-b from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-2xl p-6 relative opacity-60 pointer-events-none flex flex-col">
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">COMING SOON</span>
                   </div>
@@ -601,7 +601,7 @@ function ZiggyHomePage() {
                     <div className="text-3xl font-bold text-blue-300 mb-1">$49.99</div>
                     <div className="text-sm text-gray-400">per month</div>
                   </div>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-3 mb-6 flex-grow">
                     <li className="flex items-center space-x-3">
                       <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
                       <span className="text-sm text-gray-300">Everything in Social Plus</span>
@@ -623,7 +623,7 @@ function ZiggyHomePage() {
                       <span className="text-sm text-gray-300">White-label options</span>
                     </li>
                   </ul>
-                  <button className="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed" disabled>
+                  <button className="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl font-medium text-sm text-white opacity-80 cursor-not-allowed mt-auto" disabled>
                     Coming Soon
                   </button>
                 </div>
