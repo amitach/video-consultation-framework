@@ -33,7 +33,7 @@ function ZiggyHomePage() {
               Meet Ziggy
             </h1>
             <h2 className="text-xl md:text-2xl font-bold text-blue-900 mb-1">
-              Your AI Video Call Sidekick
+              Your AI Video Call Sidekick!!!!
             </h2>
             <p className="text-base md:text-lg text-blue-800 mb-2 font-medium">
               Talk face-to-face with Ziggy, an incredibly fun AI you can actually video call! Ask questions, share a laugh, or just chat—Ziggy responds in real time, just like a real person.
