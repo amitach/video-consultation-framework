@@ -475,42 +475,52 @@ function ZiggyHomePage() {
             </div>
             <div className="p-8 overflow-y-auto max-h-[calc(90vh-120px)]">
               
-              {/* Current Free Access */}
+              {/* Current Status */}
               <div className="text-center mb-12 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-6">
                 <div className="inline-flex items-center space-x-2 bg-green-500/20 border border-green-500/30 rounded-full px-4 py-2 text-sm mb-4">
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                  <span className="text-green-300 font-semibold">LIMITED TIME BETA</span>
+                  <span className="text-green-300 font-semibold">BETA VERSION - FREE ACCESS</span>
                 </div>
-                <h4 className="text-xl font-bold text-white mb-2">All Premium Features Currently FREE!</h4>
-                <p className="text-gray-300 text-sm">Get unlimited access to everything while we're in beta. When we launch, these will be premium features.</p>
+                <h4 className="text-xl font-bold text-white mb-2">Try Ziggy For Free!</h4>
+                <p className="text-gray-300 text-sm">Currently offering basic AI comedy conversations. Premium features like personalization and group sessions are coming soon.</p>
               </div>
 
               {/* Pricing Tiers */}
               <div className="grid lg:grid-cols-4 gap-6 mb-12">
                 
-                {/* Free Tier */}
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 relative">
+                {/* Current Beta */}
+                <div className="bg-gradient-to-b from-green-500/10 to-emerald-500/10 border-2 border-green-500/30 rounded-2xl p-6 relative">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">AVAILABLE NOW</span>
+                  </div>
                   <div className="text-center mb-6">
-                    <h4 className="text-lg font-bold text-white mb-2">Ziggy Free</h4>
-                    <div className="text-3xl font-bold text-gray-300 mb-1">$0</div>
-                    <div className="text-sm text-gray-400">Forever</div>
+                    <h4 className="text-lg font-bold text-white mb-2">Ziggy Beta</h4>
+                    <div className="text-3xl font-bold text-green-300 mb-1">FREE</div>
+                    <div className="text-sm text-gray-400">Limited time</div>
                   </div>
                   <ul className="space-y-3 mb-6">
                     <li className="flex items-center space-x-3">
                       <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                      <span className="text-sm text-gray-300">5 minutes daily</span>
+                      <span className="text-sm text-gray-300">Unlimited video calls</span>
                     </li>
                     <li className="flex items-center space-x-3">
                       <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                      <span className="text-sm text-gray-300">Basic comedy content</span>
+                      <span className="text-sm text-gray-300">AI comedy conversations</span>
                     </li>
                     <li className="flex items-center space-x-3">
                       <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                      <span className="text-sm text-gray-300">Standard jokes & stories</span>
+                      <span className="text-sm text-gray-300">Real-time video responses</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                      <span className="text-sm text-gray-300">Custom joke requests</span>
                     </li>
                   </ul>
-                  <button className="w-full py-3 border border-gray-600 rounded-xl font-medium text-sm text-gray-300 bg-gray-800 cursor-default" disabled>
-                    Current Plan
+                  <button 
+                    onClick={() => setShowPricing(false)}
+                    className="w-full py-3 bg-green-600 hover:bg-green-700 rounded-xl font-medium text-sm text-white transition-colors"
+                  >
+                    Try It Now
                   </button>
                 </div>
 
@@ -619,74 +629,29 @@ function ZiggyHomePage() {
                 </div>
               </div>
 
-              {/* Special Features */}
-              <div className="mb-8">
-                <h4 className="text-2xl font-bold text-white text-center mb-8">Premium Add-Ons</h4>
-                <div className="grid md:grid-cols-2 gap-6">
-                  
-                  {/* Special Occasions */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="text-2xl">🎉</span>
-                      <h5 className="text-lg font-bold text-white">Special Occasions</h5>
-                    </div>
-                    <p className="text-gray-400 text-sm mb-4">Custom comedy for life's special moments</p>
-                    <ul className="space-y-2 mb-4">
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Birthday Roasts</span>
-                        <span className="text-sm text-yellow-400 font-medium">$4.99</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Anniversary Specials</span>
-                        <span className="text-sm text-yellow-400 font-medium">$6.99</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Work Presentations</span>
-                        <span className="text-sm text-yellow-400 font-medium">$9.99</span>
-                      </li>
-                    </ul>
-                  </div>
 
-                  {/* Creator Studio */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="text-2xl">🎬</span>
-                      <h5 className="text-lg font-bold text-white">Creator Studio</h5>
-                    </div>
-                    <p className="text-gray-400 text-sm mb-4">Become a better comedian yourself</p>
-                    <ul className="space-y-2 mb-4">
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Comedy Writing Assistant</span>
-                        <span className="text-sm text-purple-400 font-medium">$99.99/mo</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Practice Partner</span>
-                        <span className="text-sm text-purple-400 font-medium">Included</span>
-                      </li>
-                      <li className="flex items-center justify-between">
-                        <span className="text-sm text-gray-300">Voice Cloning</span>
-                        <span className="text-sm text-purple-400 font-medium">Included</span>
-                      </li>
-                    </ul>
-                  </div>
+              {/* Coming Soon Notice */}
+              <div className="text-center bg-gradient-to-r from-purple-500/10 to-orange-500/10 border border-purple-500/20 rounded-2xl p-8">
+                <div className="inline-flex items-center space-x-2 bg-purple-500/20 border border-purple-500/30 rounded-full px-4 py-2 text-sm mb-6">
+                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
+                  <span className="text-purple-300 font-semibold">DEVELOPMENT IN PROGRESS</span>
                 </div>
-              </div>
-
-              {/* Enterprise Solutions */}
-              <div className="text-center bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8">
-                <h4 className="text-xl font-bold text-white mb-4">Enterprise Solutions</h4>
+                <h4 className="text-xl font-bold text-white mb-4">Premium Features Coming Soon</h4>
                 <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                  Transform your workplace culture with AI-powered comedy. Perfect for team building, 
-                  presentations, and corporate events.
+                  We're building advanced personalization, group sessions, and enterprise features. 
+                  Join our early access list to be notified when they're ready!
                 </p>
-                <div className="flex flex-wrap justify-center gap-4 mb-6">
-                  <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm">Slack Integration</span>
-                  <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-300 text-sm">Teams Integration</span>
-                  <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-300 text-sm">Custom Branding</span>
-                  <span className="px-3 py-1 bg-orange-500/20 border border-orange-500/30 rounded-full text-orange-300 text-sm">Analytics</span>
+                <div className="flex flex-wrap justify-center gap-3 mb-6">
+                  <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-300 text-sm">Data Personalization</span>
+                  <span className="px-3 py-1 bg-orange-500/20 border border-orange-500/30 rounded-full text-orange-300 text-sm">Group Sessions</span>
+                  <span className="px-3 py-1 bg-pink-500/20 border border-pink-500/30 rounded-full text-pink-300 text-sm">Creator Tools</span>
+                  <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm">Enterprise Features</span>
                 </div>
-                <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-semibold text-white hover:from-blue-500 hover:to-purple-500 transition-colors">
-                  Contact Enterprise Sales
+                <button 
+                  onClick={() => {setShowPricing(false); setShowWaitlistForm(true);}}
+                  className="px-8 py-3 bg-gradient-to-r from-purple-600 to-orange-600 rounded-xl font-semibold text-white hover:from-purple-500 hover:to-orange-500 transition-colors"
+                >
+                  Join Early Access Waitlist
                 </button>
               </div>
             </div>
